@@ -66,9 +66,10 @@ window.countNRooksSolutions = function(n) {
 window.findNQueensSolution = function(n) {
   var solution = [];
   var initBoard = new Board({n:n});
-  // if(n === 2 || n === 3) {
-  //   return initBoard;
-  // }
+
+  if(n === 2 || n === 3) {
+    return initBoard.rows();
+  }
 
   var boardSolution = function (board, row, cols, pieces) {
     if(pieces === 0) {
@@ -80,8 +81,7 @@ window.findNQueensSolution = function(n) {
     for(var i = 0; i < n; i++) {
       board.togglePiece(row, i);
       if(!board.hasAnyQueensConflicts()) {
-        --pieces;
-        boardSolution(board, row+1, cols, pieces);
+        boardSolution(board, row+1, cols, pieces - 1);
       }
       board.togglePiece(row, i);
     }
